@@ -228,14 +228,24 @@
             const ip = "mcbossy.pl";
             navigator.clipboard.writeText(ip).then(() => {
                 const toast = document.getElementById('copy-toast');
+                
                 toast.classList.remove('hidden');
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.5s ease-in-out';
+                
                 setTimeout(() => {
-                    toast.classList.add('hidden');
+                    toast.style.opacity = '1';
+                }, 50);
+
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => {
+                        toast.classList.add('hidden');
+                    }, 500);
                 }, 3000);
             });
         }
 
-        // Obsługa mobilnego menu
         document.getElementById('mobile-menu-btn').addEventListener('click', function() {
             const menu = document.getElementById('mobile-menu');
             menu.classList.toggle('hidden');
