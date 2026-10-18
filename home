@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCBossy.pl - Serwer Minecraft</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Rubik:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b1329;
+            color: #ffffff;
+        }
+        .font-heading {
+            font-family: 'Rubik', sans-serif;
+        }
+        /* Tło jak ze zdjęcia */
+        .hero-bg {
+            background: linear-gradient(180deg, #87bce6 0%, #61a2d8 100%);
+        }
+        .glow-blue {
+            box-shadow: 0 0 35px rgba(56, 189, 248, 0.4);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-sky-500 selection:text-white">
+
+    <!-- 1. GÓRNE MENU (NAVBAR) - DOKŁADNIE JAK NA SCREENIE -->
+    <nav class="sticky top-0 z-50 bg-white shadow-md border-b border-sky-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                
+                <!-- Logo po lewej stronie -->
+                <a href="#" class="flex items-center gap-3">
+                    <img src="mcbossy.jpg" alt="MCBossy Logo" class="h-10 w-10 object-cover rounded-lg border border-sky-200 shadow-sm" onerror="this.onerror=null; this.src='https://via.placeholder.com/150/0284c7/ffffff?text=MCB';">
+                    <span class="font-heading font-black text-xl text-slate-800 tracking-wider">MCBOSSY</span>
+                </a>
+
+                <!-- Wycentrowane odnośniki -->
+                <div class="hidden md:flex items-center space-x-8 font-semibold text-slate-600 text-sm">
+                    <a href="#about" class="hover:text-sky-600 transition-colors">O SERWERZE</a>
+                    <a href="#ranks" class="hover:text-sky-600 transition-colors">RANGI / SKLEP</a>
+                    <a href="#rules" class="hover:text-sky-600 transition-colors">REGULAMIN</a>
+                    <a href="#discord" class="hover:text-sky-600 transition-colors">DISCORD</a>
+                </div>
+
+                <!-- Ikony po prawej stronie -->
+                <div class="hidden md:flex items-center space-x-5 text-slate-500 text-lg">
+                    <a href="#discord" class="hover:text-sky-600 transition-colors"><i class="fa-brands fa-discord"></i></a>
+                    <a href="#" class="hover:text-sky-600 transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" class="hover:text-sky-600 transition-colors"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-slate-700 text-2xl focus:outline-none">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Menu mobilne -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2 text-center font-semibold text-slate-700">
+            <a href="#about" class="block py-2 hover:bg-sky-50 rounded">O SERWERZE</a>
+            <a href="#ranks" class="block py-2 hover:bg-sky-50 rounded">RANGI / SKLEP</a>
+            <a href="#rules" class="block py-2 hover:bg-sky-50 rounded">REGULAMIN</a>
+            <a href="#discord" class="block py-2 hover:bg-sky-50 rounded">DISCORD</a>
+        </div>
+    </nav>
+
+    <!-- 2. MAIN HERO SECTION - DUŻE LOGO NA ŚRODKU (BEZ PRZYCISKÓW) -->
+    <section class="hero-bg min-h-[80vh] flex items-center justify-center p-6 relative overflow-hidden">
+        <div class="text-center max-w-4xl mx-auto py-12">
+            <!-- Wycentrowane Logo MCBossy -->
+            <img src="mcbossy.jpg" alt="MCBossy.pl Logo" class="max-w-[320px] sm:max-w-[480px] md:max-w-[550px] w-full mx-auto drop-shadow-2xl transition-transform duration-500 hover:scale-105" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x600/0284c7/ffffff?text=MCBOSSY.PL';">
+        </div>
+    </section>
+
+    <!-- 3. ZJEŻDŻASZ W DÓŁ -> PRZYCISK IP: MCBOSSY.PL -->
+    <section id="ip-section" class="bg-slate-900 py-12 border-y-4 border-sky-500 shadow-inner">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            
+            <p class="text-sky-400 font-bold tracking-widest text-sm uppercase mb-3">DOŁĄCZ DO GRY JUŻ TERAZ!</p>
+
+            <!-- Przycisk do kopiowania IP -->
+            <button onclick="copyIP()" class="group relative inline-flex items-center gap-4 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-heading font-extrabold text-2xl sm:text-3xl px-8 py-5 rounded-2xl shadow-lg glow-blue transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0">
+                <i class="fa-solid fa-gamepad text-sky-200"></i>
+                <span>IP: MCBOSSY.PL</span>
+                <i class="fa-regular fa-copy text-sky-200 text-xl group-hover:scale-110 transition-transform"></i>
+            </button>
+
+            <!-- Komunikat powiadomienia o skopiowaniu -->
+            <div id="copy-toast" class="hidden mt-4 text-emerald-400 font-semibold text-lg flex items-center justify-center gap-2 transition-all">
+                <i class="fa-solid fa-circle-check"></i> Skopiowano IP do schowka! Wklej je w Minecraft.
+            </div>
+
+            <div class="mt-6 flex items-center justify-center gap-2 text-slate-400 font-medium text-sm">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Wersja gry: <strong class="text-white">1.16 - 1.20+</strong></span>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 4. O SERWERZE -->
+    <section id="about" class="py-20 bg-slate-950 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-heading font-black text-3xl sm:text-4xl text-white tracking-wide">DLACZEGO MCBOSSY?</h2>
+                <p class="text-slate-400 mt-2">Zobacz, co przygotowaliśmy dla naszych graczy</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Karta 1 -->
+                <div class="bg-slate-900/80 border border-slate-800 p-8 rounded-2xl hover:border-sky-500/50 transition-all">
+                    <div class="w-14 h-14 bg-sky-500/10 text-sky-400 rounded-xl flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-dragon"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-white mb-3">Epickie Bossy</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">Walcz z unikalnymi bossami na specjalnych arenach i zdobywaj potężne uzbrojenie oraz nagrody.</p>
+                </div>
+
+                <!-- Karta 2 -->
+                <div class="bg-slate-900/80 border border-slate-800 p-8 rounded-2xl hover:border-sky-500/50 transition-all">
+                    <div class="w-14 h-14 bg-sky-500/10 text-sky-400 rounded-xl flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-white mb-3">Gildie i Wojny</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">Załóż własną gildię ze znajomymi, buduj potężną bazę i rywalizuj o miano najlepszej ekipy.</p>
+                </div>
+
+                <!-- Karta 3 -->
+                <div class="bg-slate-900/80 border border-slate-800 p-8 rounded-2xl hover:border-sky-500/50 transition-all">
+                    <div class="w-14 h-14 bg-sky-500/10 text-sky-400 rounded-xl flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-coins"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-white mb-3">Rozbudowana Ekonomia</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">Handluj z innymi graczami na rynku, twórz własne sklepy i zarabiaj walutę serwerową.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. SKLEP / RANGI -->
+    <section id="ranks" class="py-20 bg-slate-900 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-heading font-black text-3xl sm:text-4xl text-white">RANGI VIP</h2>
+                <p class="text-slate-400 mt-2">Wspieraj serwer i zyskaj wyjątkowe przywileje</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- VIP -->
+                <div class="bg-slate-950 border border-slate-800 rounded-2xl p-8 flex flex-col justify-between hover:border-sky-500 transition-all">
+                    <div>
+                        <h3 class="font-heading font-black text-2xl text-sky-400 mb-2">VIP</h3>
+                        <p class="text-3xl font-bold text-white mb-6">10 PLN <span class="text-sm font-normal text-slate-400">/ edycja</span></p>
+                        <ul class="space-y-3 text-slate-300 text-sm mb-8">
+                            <li><i class="fa-solid fa-check text-sky-400 mr-2"></i> Dostęp do komendy /kit vip</li>
+                            <li><i class="fa-solid fa-check text-sky-400 mr-2"></i> Rezerwacja slotu na serwerze</li>
+                            <li><i class="fa-solid fa-check text-sky-400 mr-2"></i> Pisanie w kolorze na czacie</li>
+                        </ul>
+                    </div>
+                    <a href="#discord" class="w-full py-3 bg-slate-800 hover:bg-sky-600 text-white font-semibold rounded-xl text-center transition-colors block">Kup na Discordzie</a>
+                </div>
+
+                <!-- SVIP -->
+                <div class="bg-slate-950 border-2 border-sky-500 rounded-2xl p-8 flex flex-col justify-between relative shadow-xl">
+                    <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-sky-500 text-white font-bold text-xs uppercase px-4 py-1 rounded-full tracking-wider">Najpopularniejszy</span>
+                    <div>
+                        <h3 class="font-heading font-black text-2xl text-sky-300 mb-2">SUPER VIP</h3>
+                        <p class="text-3xl font-bold text-white mb-6">20 PLN <span class="text-sm font-normal text-slate-400">/ edycja</span></p>
+                        <ul class="space-y-3 text-slate-300 text-sm mb-8">
+                            <li><i class="fa-solid fa-check text-sky-400 mr-2"></i> Wszystkie korzyści VIPa</li>
+                            <li><i class="fa-solid fa-check text-sky-400 mr-2"></i> Dostęp do komendy /fly na spawnie</li>
+                            <li><i class="fa-solid fa-check text-sky-400 mr-2"></i> Dedykowany zestaw uzbrojenia</li>
+                        </ul>
+                    </div>
+                    <a href="#discord" class="w-full py-3 bg-sky-500 hover:bg-sky-400 text-white font-semibold rounded-xl text-center transition-colors block">Kup na Discordzie</a>
+                </div>
+
+                <!-- BOSSY -->
+                <div class="bg-slate-950 border border-slate-800 rounded-2xl p-8 flex flex-col justify-between hover:border-sky-500 transition-all">
+                    <div>
+                        <h3 class="font-heading font-black text-2xl text-amber-400 mb-2">BOSSY</h3>
+                        <p class="text-3xl font-bold text-white mb-6">35 PLN <span class="text-sm font-normal text-slate-400">/ edycja</span></p>
+                        <ul class="space-y-3 text-slate-300 text-sm mb-8">
+                            <li><i class="fa-solid fa-check text-amber-400 mr-2"></i> Najwyższy status na serwerze</li>
+                            <li><i class="fa-solid fa-check text-amber-400 mr-2"></i> Dostęp do prywatnego strefy VIP</li>
+                            <li><i class="fa-solid fa-check text-amber-400 mr-2"></i> Ranga na Discordzie i na serwerze</li>
+                        </ul>
+                    </div>
+                    <a href="#discord" class="w-full py-3 bg-slate-800 hover:bg-amber-500 text-white font-semibold rounded-xl text-center transition-colors block">Kup na Discordzie</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. DISCORD SECTION -->
+    <section id="discord" class="py-20 bg-slate-950 px-4 border-t border-slate-900">
+        <div class="max-w-4xl mx-auto bg-gradient-to-r from-indigo-900/50 to-sky-900/50 border border-sky-500/30 rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden">
+            <h2 class="font-heading font-black text-3xl sm:text-4xl text-white mb-4">DOŁĄCZ DO NASZEGO DISCORDA!</h2>
+            <p class="text-slate-300 max-w-xl mx-auto mb-8">Rozmawiaj z innymi graczami, bierz udział w konkursach na darmowe rangi i zgłaszaj swoje propozycje.</p>
+            <a href="https://discord.gg" target="_blank" class="inline-flex items-center gap-3 bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold text-lg px-8 py-4 rounded-xl shadow-lg transition-all transform hover:-translate-y-1">
+                <i class="fa-brands fa-discord text-2xl"></i>
+                 Dołącz do Społeczności
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 py-8 border-t border-slate-900 text-center text-slate-500 text-sm">
+        <p>&copy; 2026 MCBossy.pl - Wszelkie prawa zastrzeżone.</p>
+        <p class="mt-1 text-xs text-slate-600">Serwer nie jest w żaden sposób powiązany z firmą Mojang AB.</p>
+    </footer>
+
+    <!-- SKRYPTY JAVASCRIPT -->
+    <script>
+        // Kopiowanie IP
+        function copyIP() {
+            const ip = "mcbossy.pl";
+            navigator.clipboard.writeText(ip).then(() => {
+                const toast = document.getElementById('copy-toast');
+                toast.classList.remove('hidden');
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                }, 3000);
+            });
+        }
+
+        // Obsługa mobilnego menu
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
