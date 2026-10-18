@@ -89,12 +89,12 @@
             
             <p class="text-sky-400 font-bold tracking-widest text-sm uppercase mb-3">DOŁĄCZ DO GRY JUŻ TERAZ!</p>
 
-            <!-- Przycisk do kopiowania IP -->
-            <button onclick="copyIP()" class="group relative inline-flex items-center gap-4 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-heading font-extrabold text-2xl sm:text-3xl px-8 py-5 rounded-2xl shadow-lg glow-blue transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0">
-                <i class="fa-solid fa-gamepad text-sky-200"></i>
-                <span>IP: MCBOSSY.PL</span>
-                <i class="fa-regular fa-copy text-sky-200 text-xl group-hover:scale-110 transition-transform"></i>
-            </button>
+           <!-- Przycisk do kopiowania IP -->
+<button id="ip-btn" onclick="copyIP()" class="group relative inline-flex items-center gap-4 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-heading font-extrabold text-2xl sm:text-3xl px-8 py-5 rounded-2xl shadow-lg glow-blue transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0">
+    <i id="ip-icon" class="fa-solid fa-gamepad text-sky-200"></i>
+    <span id="ip-text">IP: MCBOSSY.PL</span>
+    <i id="ip-copy-icon" class="fa-regular fa-copy text-sky-200 text-xl group-hover:scale-110 transition-transform"></i>
+</button>
 
             <!-- Komunikat powiadomienia o skopiowaniu -->
             <div id="copy-toast" class="hidden mt-4 text-emerald-400 font-semibold text-lg flex items-center justify-center gap-2 transition-all">
@@ -224,32 +224,43 @@
     <!-- SKRYPTY JAVASCRIPT -->
     <script>
         // Kopiowanie IP
-        function copyIP() {
-            const ip = "mcbossy.pl";
-            navigator.clipboard.writeText(ip).then(() => {
-                const toast = document.getElementById('copy-toast');
-                
-                toast.classList.remove('hidden');
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.5s ease-in-out';
-                
-                setTimeout(() => {
-                    toast.style.opacity = '1';
-                }, 50);
+       function copyIP() {
+        const ip = "mcbossy.pl";
+        const btn = document.getElementById('ip-btn');
+        const text = document.getElementById('ip-text');
+        const icon = document.getElementById('ip-icon');
+        const copyIcon = document.getElementById('ip-copy-icon');
 
-                setTimeout(() => {
-                    toast.style.opacity = '0';
-                    setTimeout(() => {
-                        toast.classList.add('hidden');
-                    }, 500);
-                }, 3000);
-            });
-        }
+        navigator.clipboard.writeText(ip).then(() => {
+            // Zmiana wyglądu przycisku na zielony / sukces
+            btn.classList.remove('from-sky-500', 'to-blue-600', 'hover:from-sky-400', 'hover:to-blue-500');
+            btn.classList.add('from-emerald-500', 'to-green-600', 'hover:from-emerald-400', 'hover:to-green-500');
+            
+            text.innerText = "SKOPIOWANO IP!";
+            icon.className = "fa-solid fa-circle-check text-emerald-200";
+            copyIcon.style.display = "none";
 
-        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+            // Efekt delikatnego powiększenia przy kliknięciu
+            btn.style.transform = "scale(1.05)";
+            setTimeout(() => { btn.style.transform = ""; }, 150);
+
+            // Powrót do pierwotnego wyglądu po 2.5 sekundy
+            setTimeout(() => {
+                btn.classList.remove('from-emerald-500', 'to-green-600', 'hover:from-emerald-400', 'hover:to-green-500');
+                btn.classList.add('from-sky-500', 'to-blue-600', 'hover:from-sky-400', 'hover:to-blue-500');
+                
+                text.innerText = "IP: MCBOSSY.PL";
+                icon.className = "fa-solid fa-gamepad text-sky-200";
+                copyIcon.style.display = "inline-block";
+            }, 2500);
         });
+    }
+
+    // Obsługa mobilnego menu
+    document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+    });
     </script>
 </body>
 </html>
